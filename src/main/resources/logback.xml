@@ -32,6 +32,6 @@
             </else>
         </if>
     </root>
-    <logger name="com.datart.sensors" level="INFO"/>
+    <logger name="pl.datart.arbitup" level="INFO"/>
 
 </configuration>

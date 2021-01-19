@@ -3,6 +3,7 @@ object VersionsOf {
   val betterFiles     = "3.9.1"
   val catsEffect      = "2.3.1"
   val janino          = "3.1.2"
+  val jgrapht         = "1.5.0"
   val logbackClassic  = "1.2.3"
   val monix           = "3.3.0"
   val pureConfig      = "0.14.0"

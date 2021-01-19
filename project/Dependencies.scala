@@ -6,6 +6,7 @@ object Dependencies {
   private val betterFiles     = "com.github.pathikrit"          %% "better-files"                   % VersionsOf.betterFiles
   private val catsEffect      = "org.typelevel"                 %% "cats-effect"                    % VersionsOf.catsEffect
   private val janino          = "org.codehaus.janino"           %  "janino"                         % VersionsOf.janino
+  private val jgrapht         = "org.jgrapht"                   %  "jgrapht-core"                   % VersionsOf.jgrapht
   private val logbackClassic  = "ch.qos.logback"                %  "logback-classic"                % VersionsOf.logbackClassic
   private val monix           = "io.monix"                      %% "monix"                          % VersionsOf.monix
   private val pureConfig      = "com.github.pureconfig"         %% "pureconfig"                     % VersionsOf.pureConfig
@@ -20,6 +21,7 @@ object Dependencies {
     betterFiles,
     catsEffect,
     janino,
+    jgrapht,
     logbackClassic,
     monix,
     pureConfig,

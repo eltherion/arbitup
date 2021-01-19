@@ -1,7 +1,7 @@
 package pl.datart.arbitup.model
 
-final case class Opportunity(cycle: List[Currency], multiplyer: Float) {
+final case class Opportunity(cycle: List[Currency], multiplier: Float) {
   def asString: String = {
-    s"Found opportunity: ${cycle.mkString(" -> ")}, multiplyer: ${multiplyer.toString}."
+    s"${cycle.mkString(" -> ")}, multiplier: ${multiplier.toString}"
   }
 }
