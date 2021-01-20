@@ -19,11 +19,20 @@ class ArbitrageImpl[F[_]](
     with StrictLogging {
   def run(url: String): F[Unit] = {
     for {
+      _           <- monadError.pure {
+                       logger.info("Fetching exchange rates...")
+                     }
       rates       <- ratesFetcher.getRates(url)
+      _           <- monadError.pure {
+                       logger.info("Exchange rates fetched.")
+                     }
       graph       <- graphBuilder.build(rates)
+      _           <- monadError.pure {
+                       logger.info("Searching for opportunities...")
+                     }
       opportunity <- taskPlanner.scheduleAndRun(graph)
       _           <- monadError.pure {
-                       logger.info(opportunity.fold("No opportunity found.")(op => s"Best found opportunity ${op.asString}"))
+                       logger.info(opportunity.fold("No opportunity found.")(op => s"Best found opportunity: ${op.asString}"))
                      }
     } yield (())
   }

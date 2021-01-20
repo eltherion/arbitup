@@ -2,7 +2,6 @@ package pl.datart.arbitup.alg
 
 import cats.MonadError
 import cats.syntax.functor._
-import com.typesafe.scalalogging.StrictLogging
 import org.jgrapht._
 import org.jgrapht.alg.shortestpath._
 import pl.datart.arbitup.model._
@@ -14,7 +13,7 @@ trait CycleFinder[F[_]] {
   def find(graph: Graph[Currency, Rate], v: Currency): F[Option[Opportunity]]
 }
 
-class CycleFinderImpl[F[_]](implicit monadError: MonadError[F, Throwable]) extends CycleFinder[F] with StrictLogging {
+class CycleFinderImpl[F[_]](implicit monadError: MonadError[F, Throwable]) extends CycleFinder[F] {
   def find(graph: Graph[Currency, Rate], v: Currency): F[Option[Opportunity]] = {
     monadError.handleError {
       monadError
@@ -24,18 +23,16 @@ class CycleFinderImpl[F[_]](implicit monadError: MonadError[F, Throwable]) exten
         .map(_ => Option.empty[Opportunity])
     } {
       case exception: NegativeCycleDetectedException =>
-        val cycle       = exception.getCycle.getVertexList.asScala.toList.collect {
+        val cycle        = exception.getCycle.getVertexList.asScala.toList.collect {
           case c: Currency => c
         }
-        val multiplier  = exception.getCycle.getEdgeList.asScala.toList
+        val edgesInCycle = exception.getCycle.getEdgeList.asScala.toList
+        val rates        = edgesInCycle
           .collect {
             case r: Rate => r
           }
           .map(_.value)
-          .product
-        val opportunity = Opportunity(cycle, multiplier)
-        logger.info(s"Found opportunity ${opportunity.asString}")
-        Option(Opportunity(cycle, multiplier))
+        Option(Opportunity(cycle, rates, rates.product))
     }
   }
 }
