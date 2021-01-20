@@ -26,7 +26,9 @@ class TaskPlannerImplSpec extends AsyncWordSpec with Matchers {
     value = 1.0f
   )
 
-  private val expectedOpportunity = Option(Opportunity(cycle = List(usd, eur, usd), multiplier = 1.01f))
+  private val expectedOpportunity = Option(
+    Opportunity(cycle = List(usd, eur, usd), rates = List(1.01f, 1.0f), multiplier = 1.01f)
+  )
 
   private val graph = {
     val g = new SimpleDirectedWeightedGraph[Currency, Rate](classOf[Rate])

@@ -16,6 +16,8 @@ target/
 project/boot/
 .history
 .cache
+amm
+sbt-launch.jar
 
 .idea/
 *.iml

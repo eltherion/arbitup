@@ -35,7 +35,8 @@ class CycleFinderImplSpec extends AsyncWordSpec with Matchers {
           value = 1.0f
         )
 
-        val expectedOpportunity = Option(Opportunity(cycle = List(usd, eur, usd), multiplier = 1.01f))
+        val expectedOpportunity =
+          Option(Opportunity(cycle = List(usd, eur, usd), rates = List(1.01f, 1.0f), multiplier = 1.01f))
 
         val graph = new GraphBuilderImpl[Task]().build(Set(rateUsdEur, rateEurUsd))
 
@@ -91,7 +92,9 @@ class CycleFinderImplSpec extends AsyncWordSpec with Matchers {
           }
           .toSet
 
-        val expectedOpportunity = Option(Opportunity(cycle = List(jpy, eth, btc, jpy), multiplier = 1.061106f))
+        val expectedOpportunity = Option(
+          Opportunity(cycle = List(jpy, eth, btc, jpy), rates = List(1.01f, 1.02f, 1.03f), multiplier = 1.061106f)
+        )
 
         val graph = new GraphBuilderImpl[Task]().build(rates)
 
